@@ -1,0 +1,34 @@
+type User 
+{
+  id: ID!
+  role: String!
+  name: String!
+  lastname: String!
+  email: String!
+  chats: [Chat!]! @belongsToMany
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+input userUpdate
+{
+  id: ID!
+  name: String!
+  lastname: String!
+  email: String!	
+}
+
+extend type Query 
+{
+  users: [User!]! @paginate(defaultCount: 10) @admin
+  user(id: ID @eq): User @find
+  me: User! @auth
+}
+
+extend type Mutation
+{
+	userUpdate(input: userUpdate!): User! @update
+	userDelete(id: ID! @eq): User @delete
+  userUpgrade(id: ID!): User! @field(resolver: "UserMutation@upgrade")
+  userDowngrade(id: ID!): User! @field(resolver: "UserMutation@downgrade")
+}
