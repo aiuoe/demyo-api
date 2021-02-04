@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         \Nuwave\Lighthouse\Subscriptions\SubscriptionServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        \Nuwave\Lighthouse\Subscriptions\SubscriptionServiceProvider::class,
 
     ],
 

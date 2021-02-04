@@ -27,8 +27,13 @@ extend type Query
 
 extend type Mutation
 {
-	userUpdate(input: userUpdate! @spread): User! @update
+	userUpdate(input: userUpdate! @spread): User! @update @broadcast(subscription: "userUpdated")
 	userDelete(id: ID! @eq): User @delete
   userUpgrade(id: ID! @eq): User! @field(resolver: "UserMutation@upgrade")
   userDowngrade(id: ID! @eq): User! @field(resolver: "UserMutation@downgrade")
+}
+
+extend type Subscription
+{
+  userUpdated: User
 }
