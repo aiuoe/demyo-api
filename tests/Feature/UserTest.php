@@ -59,7 +59,7 @@ class UserTest extends TestCase
 	public function testUpdate()
 	{
 		$user = User::factory()->create();
-		$this->actingAs($user);
+		$this->actingAs($user, 'api');
 
 		$update = $this->graphQl('mutation
 		{
@@ -79,6 +79,7 @@ class UserTest extends TestCase
 		  }
 		}');
 
+		// $update->dump();
 	  $update->assertStatus(200)
 		->assertJson([
 			'data' => 

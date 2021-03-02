@@ -11,18 +11,17 @@ class Message extends Model
   use HasFactory;
 
   protected $table = 'messages', $fillable = [
-  	'chat_id', 
-  	'user_id', 
-  	'message'
+    'conversation_id', 
+    'user_id', 
+    'message'
   ];
 
-
-	public function chat(): BelongsTo
+  public function conversation(): BelongsTo
   {
-  	return $this->belongsTo(Chat::class);
+  	return $this->belongsTo(Conversation::class);
   }
 
-	public function user(): BelongsTo
+  public function user(): BelongsTo
   {
   	return $this->belongsTo(User::class);
   }

@@ -1,0 +1,20 @@
+type Conversation
+{
+  id: ID!
+  # user_id: User! @belongsToMany(relation: "user")
+  friend_id: User! @belongsTo(relation: "friend")
+  created_at: Date!
+  updated_at: Date!
+  nmessages: Int @count(relation: "messages")
+  messages: [Message!]! @hasMany
+}
+
+extend type Query
+{
+  conversations(page: Int!): [Conversation!]! @paginateAuth
+}
+
+extend type Mutation
+{
+	conversationDelete(id: ID! @rules(apply: ["has:conversations"]) @eq): Conversation @delete
+}

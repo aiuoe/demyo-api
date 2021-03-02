@@ -43,8 +43,6 @@ class UserJob implements ShouldQueue
             'email' => $this->email,
             'password' => $this->password,
         ]);
-        // ->emails()
-        // ->create(["email_alt" => $this->email]);
 
         return response()->json(["message" => "success"], 200);
     }

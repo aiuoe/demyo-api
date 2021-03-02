@@ -2,7 +2,7 @@ type Message
 {
   id: ID!
   user_id: User! @belongsTo(relation: "user")
-  chat_id: Chat! @belongsTo(relation: "chat")
+  conversation_id: Conversation! @belongsTo(relation: "conversation")
   message: String!
   created_at: Date!
   updated_at: Date!
@@ -10,14 +10,14 @@ type Message
 
 input messageInput
 {
-	id: ID 
-	chat_id: ID! 
+	id: ID
+	friend_id: ID!
 	message: String! @lower
 }
 
 extend type Mutation
 {
-  messageUpsert(input: messageInput! @spread): Message! @upsert @inject(context: "user.id", name: "user_id") @guard(with: "api")
-  messageDelete(id: ID! @eq): Message @delete
+  messageUpsert(input: messageInput! @spread): Message! @field(resolver: "MessageMutation@upsert")
+  messageDelete(id: ID! @rules(apply: ["has:messages"]) @eq): Message @delete
 }
 

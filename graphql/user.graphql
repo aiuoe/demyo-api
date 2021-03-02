@@ -5,7 +5,10 @@ type User
   name: String!
   lastname: String!
   email: String!
-  chats: [Chat!]! @belongsToMany
+  nconversations: Int @count(relation: "conversations") 
+  nfriends: Int @count(relation: "friends") 
+  nmessages: Int @count(relation: "messages")
+  nfriendrequests: Int @count(relation: "friendrequests")
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -20,20 +23,16 @@ input userUpdate
 
 extend type Query 
 {
-  users: [User!]! @paginate(defaultCount: 10) @admin
+  users: [User!]! @paginate(defaultCount: 10)
   user(id: ID @eq): User @find
   me: User! @auth
 }
 
 extend type Mutation
 {
-	userUpdate(input: userUpdate! @spread): User! @update @broadcast(subscription: "userUpdated")
+	userUpdate(input: userUpdate! @spread): User! @update 
 	userDelete(id: ID! @eq): User @delete
+  
   userUpgrade(id: ID! @eq): User! @field(resolver: "UserMutation@upgrade")
   userDowngrade(id: ID! @eq): User! @field(resolver: "UserMutation@downgrade")
-}
-
-extend type Subscription
-{
-  userUpdated: User
 }

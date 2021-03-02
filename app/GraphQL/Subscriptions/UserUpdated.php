@@ -38,6 +38,6 @@ class UserUpdated extends GraphQLSubscription
 
   public function resolve($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
-	return $root;
+		return $root;
   }
 }
