@@ -15,7 +15,7 @@ type User
 
 input userUpdate
 {
-  id: ID!
+  id: ID! @rules(apply: ["auth"])
   name: String!
   lastname: String!
   email: String!	
