@@ -17,7 +17,8 @@ class MessageMutation
 			throw new AuthorizationException("to send him a message you must be his friend");
 
 		// check conversation exists or create
-		if (auth()->user()->getConversations()->contains('friend_id', '=', $args['friend_id']))
+		$conversations = auth()->user()->getConversations(); 
+		if ($conversations->contains('friend_id', '=', $args['friend_id']))
 			$conversation_id = $conversations->where('friend_id', $args['friend_id'])->first()->id;
 		else
 			$conversation_id = auth()->user()->conversations()->create(['friend_id' => $args['friend_id']])->id;
