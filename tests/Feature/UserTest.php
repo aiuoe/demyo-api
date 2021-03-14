@@ -23,6 +23,8 @@ class UserTest extends TestCase
 			'lastname' => 'cortez',
 			'email' => 'ruben@dev.com',
 			'password' => 'secret',
+			'country' => 'venezuela',
+			'age' => 28
 		]);
 
 		$signup->assertStatus(200);
