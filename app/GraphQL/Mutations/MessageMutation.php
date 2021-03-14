@@ -7,6 +7,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 use App\Models\Conversation;
 use App\Models\Message;
+use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
 class MessageMutation
 {
@@ -30,7 +31,7 @@ class MessageMutation
 			$message_id = 0;
 
 		// upsert message
-		return auth()->user()
+		$message = auth()->user()
 		->messages()
 		->updateOrCreate(
 			['id' => $message_id],
@@ -38,5 +39,7 @@ class MessageMutation
 				'conversation_id' => $conversation_id, 
 				'message' => $args['message']
 			]);
+		Subscription::broadcast('messageUpsert', $message);
+		return $message;
 	}
 }

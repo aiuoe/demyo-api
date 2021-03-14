@@ -21,3 +21,8 @@ extend type Mutation
   messageDelete(id: ID! @rules(apply: ["has:messages"]) @eq): Message @delete
 }
 
+extend type Subscription
+{
+  messageUpsert: Message!
+}
+
