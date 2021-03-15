@@ -24,13 +24,16 @@ class MessageTest extends TestCase
 		$friendRequest = $this->actingAs($user)->graphQl("mutation
 		{
 			friendRequest(friend_id: $friend->id)
+			{
+				id
+			}
 		}");
 		// $friendRequest->dump();
 		$friendRequest->assertStatus(200);
 
 		$friendRequestAccept = $this->actingAs($friend)->graphQl("mutation
 		{
-			friendRequestAccept(id: " . $friendRequest["data"]["friendRequest"] . " ) 
+			friendRequestAccept(id: " . $friendRequest["data"]["friendRequest"]["id"] . " ) 
 		}");
 		// $friendRequestAccept->dump();
 		$friendRequestAccept->assertStatus(200);
