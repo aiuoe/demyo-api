@@ -1,7 +1,6 @@
 type Friend 
 {
   id: ID
-  # user_id: User! @belongsTo(relation: "user")
   friend_id: User @belongsTo(relation: "friend")
   created_at: Date!
   updated_at: Date!
@@ -15,8 +14,13 @@ extend type Query
 
 extend type Mutation
 {
-  friendRequest(friend_id: ID! @rules(apply: ["unfriend"]) @spread): Int! @field(resolver: "FriendMutation@request")
+  friendRequest(friend_id: ID! @rules(apply: ["unfriend"]) @spread): Friend! @field(resolver: "FriendMutation@request")
   friendRequestAccept(id: ID! @spread): Int! @field(resolver: "FriendMutation@accept")
   friendDelete(id: ID! @rules(apply: ["has:friends"]) @eq): Int! @field(resolver: "FriendMutation@delete")
+}
+
+extend type Subscription
+{
+  friendRequest: Friend!
 }
 

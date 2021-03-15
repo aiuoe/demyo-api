@@ -4,15 +4,19 @@ namespace App\GraphQL\Mutations;
 
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
 class FriendMutation
 {
 
 	public function request($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
 	{
-		return auth()->user()
+		$friend = auth()->user()
 		->friends()
-		->create(['friend_id' => $args['friend_id']])->id;
+		->create(['friend_id' => $args['friend_id']]);
+		$friend->load('user');
+		Subscription::broadcast('friendRequest', $friend);
+		return $friend;
 	}
 
 	public function accept($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
