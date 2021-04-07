@@ -1,3 +1,12 @@
+enum TYPE_SEX
+{
+  male,
+  female,
+  couple,
+  male_couple,
+  female_couple
+}
+
 type User 
 {
   id: ID!
@@ -7,6 +16,7 @@ type User
   email: String!
   country: String!
   age: String!
+  sex: TYPE_SEX!
   nconversations: Int @count(relation: "conversations") 
   nfriends: Int @count(relation: "friends") 
   nmessages: Int @count(relation: "messages")

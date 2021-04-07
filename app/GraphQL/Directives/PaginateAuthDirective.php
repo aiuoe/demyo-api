@@ -44,21 +44,31 @@ class PaginateAuthDirective extends BaseDirective implements FieldResolver
     return $fieldValue
     ->setResolver(function ($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-      if ($this->nodeName() == 'conversations' || $this->nodeName() == 'friends' || $this->nodeName() == 'friendrequests')
+      if ($this->nodeName() === 'friendrequests')
       {
-        return auth()->user()
-        ->{$this->nodeName()}()
-        ->get()
-        ->transform(function ($item, $key) 
-          { 
-            if($item->friend_id == auth()->user()->id) 
-            { 
-              $item->friend_id = $item->user_id; 
-              $item->user_id = auth()->user()->id; 
-            } 
+        return auth()->user()->friend_request_all()
+        ->forPage($args['page'], $this->directiveArgValue('max') 
+        ?? config('lighthouse.pagination.default_count'));
+      }
 
-            return $item;  
-          })
+      if ($this->nodeName() === 'messages')
+      {
+        return auth()->user()->message_all()
+        ->forPage($args['page'], $this->directiveArgValue('max') 
+        ?? config('lighthouse.pagination.default_count'));
+      }
+
+      if ($this->nodeName() === 'conversations')
+      {
+        return auth()->user()->conversation_all()
+        ->forPage($args['page'], $this->directiveArgValue('max') 
+        ?? config('lighthouse.pagination.default_count'));
+      }
+
+
+      if ($this->nodeName() == 'friends')
+      {
+        return auth()->user()->friend_all()
         ->forPage($args['page'], $this->directiveArgValue('max') 
         ?? config('lighthouse.pagination.default_count'));
       }

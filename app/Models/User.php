@@ -28,6 +28,7 @@ class User extends Authenticatable implements JWTSubject
 		'password',
 		'country',
 		'age',
+		'sex'
 	];
 
 	/**
@@ -69,17 +70,7 @@ class User extends Authenticatable implements JWTSubject
 		return [];
 	}
 
-	// public function talks()
-	// {
-	// 	return DB::table('conversations')
-	// 	->where('user_id', auth()->user()->id)
-	// 	->union(DB::table('conversations')
-	// 		->where('friend_id', auth()->user()->id)
-	// 		->select(['id', 'user_id as friend_id', 'friend_id as user_id', 'created_at', 'updated_at']))
-	// 	->get();
-	// }
-
-	public function getFriends()
+	public function friend_all()
 	{
 		return auth()->user()
 		->friends()
@@ -95,7 +86,7 @@ class User extends Authenticatable implements JWTSubject
 		});
 	}
 
-	public function getFriendRequests()
+	public function friend_request_all()
 	{
 		return auth()->user()
 		->friendrequests()
@@ -111,7 +102,17 @@ class User extends Authenticatable implements JWTSubject
 		});
 	}
 
-	public function getConversations()
+	public function message_all()
+	{
+		return auth()->user()
+    ->conversations()
+    ->with('messages')
+    ->get()
+    ->pluck('messages')
+    ->flatten();
+	}
+
+	public function conversation_all()
 	{
 		return auth()->user()
 		->conversations()
@@ -174,14 +175,3 @@ class User extends Authenticatable implements JWTSubject
 		return $this->hasMany(Notification::class);
 	}
 }
-
-// auth()->user()
-// ->conversations()
-// ->with('users')
-// ->get()
-// ->pluck('users')
-// ->collapse()
-// ->pluck('pivot')
-// ->where('user_id', 1)
-// ->pluck('conversation_id')
-// ->contains(1)
