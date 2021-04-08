@@ -15,7 +15,7 @@ type User
   lastname: String!
   email: String!
   country: String!
-  age: String!
+  age: Int!
   sex: TYPE_SEX!
   nconversations: Int @count(relation: "conversations") 
   nfriends: Int @count(relation: "friends") 
@@ -30,7 +30,10 @@ input userUpdate
   id: ID! @rules(apply: ["auth"])
   name: String!
   lastname: String!
-  email: String!	
+  email: String!
+  country: String!
+  age: Int!
+  sex: String!	
 }
 
 extend type Query 
