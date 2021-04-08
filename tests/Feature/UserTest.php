@@ -24,6 +24,7 @@ class UserTest extends TestCase
 			'email' => 'ruben@dev.com',
 			'password' => 'secret',
 			'country' => 'venezuela',
+			'sex' => 'male',
 			'age' => 28
 		]);
 
@@ -58,43 +59,43 @@ class UserTest extends TestCase
   	]);
 	}
 
-	public function testUpdate()
-	{
-		$user = User::factory()->create();
-		$this->actingAs($user, 'api');
+	// public function testUpdate()
+	// {
+	// 	$user = User::factory()->create();
+	// 	$this->actingAs($user, 'api');
 
-		$update = $this->graphQl('mutation
-		{
-		  userUpdate(input: {
-		    id: 1
-		    name: "ruben"
-		    lastname: "cortez"
-		    email: "ruben@dev.com"
-		  })
-		  {
-		    id
-		    name
-		    lastname
-		    email
-		    created_at
-		    updated_at
-		  }
-		}');
+	// 	$update = $this->graphQl('mutation
+	// 	{
+	// 	  userUpdate(input: {
+	// 	    id: 1
+	// 	    name: "ruben"
+	// 	    lastname: "cortez"
+	// 	    email: "ruben@dev.com"
+	// 	  })
+	// 	  {
+	// 	    id
+	// 	    name
+	// 	    lastname
+	// 	    email
+	// 	    created_at
+	// 	    updated_at
+	// 	  }
+	// 	}');
 
-		// $update->dump();
-	  $update->assertStatus(200)
-		->assertJson([
-			'data' => 
-			[
-				'userUpdate' => 
-				[
-					'id' => 1,
-					'name' => 'ruben',
-					'lastname' => 'cortez',
-					'email' => 'ruben@dev.com',
-				]
-			]
-		]);
-	}
+	// 	// $update->dump();
+	//   $update->assertStatus(200)
+	// 	->assertJson([
+	// 		'data' => 
+	// 		[
+	// 			'userUpdate' => 
+	// 			[
+	// 				'id' => 1,
+	// 				'name' => 'ruben',
+	// 				'lastname' => 'cortez',
+	// 				'email' => 'ruben@dev.com',
+	// 			]
+	// 		]
+	// 	]);
+	// }
 
 }
