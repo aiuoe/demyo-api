@@ -3,8 +3,8 @@ type Friend
   id: ID
   user_id: User @belongsTo(relation: "user")
   friend_id: User @belongsTo(relation: "friend")
-  created_at: Date!
-  updated_at: Date!
+  created_at: DateTime!
+  updated_at: DateTime!
 }
 
 extend type Query

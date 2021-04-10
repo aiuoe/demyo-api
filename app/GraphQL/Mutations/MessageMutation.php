@@ -14,11 +14,11 @@ class MessageMutation
 	public function upsert($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
 	{
 		// check relationships exists
-		if (!auth()->user()->getFriends()->contains('friend_id', '=', $args['friend_id']))
+		if (!auth()->user()->friend_all()->contains('friend_id', '=', $args['friend_id']))
 			throw new AuthorizationException("to send him a message you must be his friend");
 
 		// check conversation exists or create
-		$conversations = auth()->user()->getConversations(); 
+		$conversations = auth()->user()->conversation_all(); 
 		if ($conversations->contains('friend_id', '=', $args['friend_id']))
 			$conversation_id = $conversations->where('friend_id', $args['friend_id'])->first()->id;
 		else
