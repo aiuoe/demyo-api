@@ -18,3 +18,8 @@ extend type Mutation
 {
 	conversationDelete(id: ID! @rules(apply: ["has:conversations"]) @eq): Conversation @delete
 }
+
+extend type Subscription
+{
+  conversationUpsert: Conversation!
+}
