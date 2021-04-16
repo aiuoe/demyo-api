@@ -33,6 +33,8 @@ class MessageUpsert extends GraphQLSubscription
 	public function filter(Subscriber $subscriber, $root): bool
 	{
 		// TODO implement filter
+		logger($subscriber);
+		logger($root);
 		if (auth()->user()->id == $subscriber->context->user->id)
 			return false;
 		else
