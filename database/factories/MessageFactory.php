@@ -24,8 +24,10 @@ class MessageFactory extends Factory
 	public function definition()
 	{
 		return [
-			'conversation_id' => auth()->user()->conversation_all()->random()['id'],
-			'user_id' => (rand(1, 0))? auth()->user()->friend_all()->random()['friend_id'] : auth()->user()->id,
+			// 'conversation_id' => auth()->user()->conversation_all()->random()['id'],
+			'conversation_id' => 49,
+			// 'user_id' => (rand(1, 0))? auth()->user()->friend_all()->random()['friend_id'] : auth()->user()->id,
+			'user_id' => auth()->user()->id,
 			'message' => $this->faker->realText($maxNbChars = 200, $indexSize = 2)
 		];
 	}

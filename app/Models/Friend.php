@@ -24,7 +24,7 @@ class Friend extends Model
     'status'
   ];
 
-  public function acceptFriendRequest()
+  public function friend_request_accept()
   {
     if (auth()->user()->id == $this->friend_id)
     {

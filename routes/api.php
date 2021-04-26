@@ -30,5 +30,5 @@ Route::group([
     Route::post('logout', 'AuthController@logout')->name('logout');
     Route::post('refresh', 'AuthController@refresh')->name('refresh');
     Route::post('me', 'AuthController@me')->name('me');
-
+    Route::post('photos', 'PhotoController@store')->name('photos');
 });

@@ -70,6 +70,21 @@ class User extends Authenticatable implements JWTSubject
 		return [];
 	}
 
+	public function user_all()
+	{
+		$friends = auth()->user()->friend_all()
+		->pluck('friend_id')
+		->prepend(auth()->user()->id);
+
+		$requests = auth()->user()->friend_request_all()
+		->pluck('friend_id')
+		->prepend(auth()->user()->id);
+
+		$merge = $friends->mergeRecursive($requests);
+
+		return User::whereNotIn('id', $merge)->get();
+	}
+
 	public function friend_all()
 	{
 		return auth()->user()
@@ -127,6 +142,11 @@ class User extends Authenticatable implements JWTSubject
 			return $item; 
 		});
 	}
+
+  public function photos(): HasMany
+  {
+    return $this->hasMany(Photo::class);
+  }
 
   public function conversations(): HasMany
   {

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Friend;
 use Illuminate\Support\Facades\Auth;
 use Faker\Generator;
 use Illuminate\Container\Container;
@@ -40,7 +41,7 @@ class UserSeeder extends Seeder
 			{
 				if (auth()->user()->id == $i->id) {return $i;} 
 
-				if (!auth()->user()->getFriends()->contains('friend_id', '=', $i->id) && !auth()->user()->getFriendRequests()->contains('friend_id', '=', $i->id)) 
+				if (!auth()->user()->friend_all()->contains('friend_id', '=', $i->id) && !auth()->user()->friend_request_all()->contains('friend_id', '=', $i->id)) 
 				{ 
 					auth()->user()->friends()->create(['friend_id' => $i->id]);
 				}
@@ -57,7 +58,7 @@ class UserSeeder extends Seeder
 			->get()
 			->each(function ($item, $key)
 			{
-				$item->acceptFriendRequest();
+				$item->friend_request_accept();
 			});
 
 		});
@@ -72,8 +73,8 @@ class UserSeeder extends Seeder
 				if (auth()->user()->id == $i->id) {return $i;} 
 
 				// check conversation exists or create
-				if (auth()->user()->getConversations()->contains('friend_id', '=', $i->id))
-					$conversation_id = auth()->user()->getConversations()->where('friend_id', $i->id)->first()->id;
+				if (auth()->user()->conversation_all()->contains('friend_id', '=', $i->id))
+					$conversation_id = auth()->user()->conversation_all()->where('friend_id', $i->id)->first()->id;
 				else
 					$conversation_id = auth()->user()->conversations()->create(['friend_id' => $i->id])->id;
 
