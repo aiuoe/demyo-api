@@ -177,6 +177,7 @@ return [
         \Nuwave\Lighthouse\Subscriptions\SubscriptionServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         \Nuwave\Lighthouse\Subscriptions\SubscriptionServiceProvider::class,
+        CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
 
     ],
 
@@ -229,6 +230,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
 
     ],
 

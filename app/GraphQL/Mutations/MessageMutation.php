@@ -39,8 +39,8 @@ class MessageMutation
 				'conversation_id' => $conversation_id, 
 				'message' => $args['message']
 			]);
-		Subscription::broadcast('messageUpsert', $message);
 		Subscription::broadcast('conversationUpsert', Conversation::find($conversation_id));
+		Subscription::broadcast('messageUpsert', $message);
 		return $message;
 	}
 }

@@ -51,6 +51,9 @@ class PaginateAuthDirective extends BaseDirective implements FieldResolver
         ?? config('lighthouse.pagination.default_count'));
       }
 
+      if ($this->nodeName() === 'users')
+        return auth()->user()->user_all();
+
       if ($this->nodeName() === 'messages')
         return auth()->user()->message_all();
 

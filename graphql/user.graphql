@@ -38,7 +38,7 @@ input userUpdate
 
 extend type Query 
 {
-  users: [User!]! @paginate(defaultCount: 10)
+  users: [User!]! @paginateAuth
   user(id: ID @eq): User @find
   me: User! @auth
 }

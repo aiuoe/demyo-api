@@ -1,0 +1,14 @@
+type Photo 
+{
+  id: ID!
+  user_id: User @belongsTo(relation: "user")
+  photo: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+extend type Query 
+{
+  photos: [Photo!]! @all
+}
+
