@@ -14,9 +14,9 @@ type User
   name: String!
   lastname: String!
   email: String!
-  country: String!
-  age: Int!
-  sex: TYPE_SEX!
+  country: String
+  age: Int
+  sex: TYPE_SEX
   nconversations: Int @count(relation: "conversations") 
   nfriends: Int @count(relation: "friends") 
   nmessages: Int @count(relation: "messages")

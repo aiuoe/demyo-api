@@ -15,7 +15,7 @@ class UserJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $name, $lastname, $email, $password, $country, $age, $sex;
+    private $name, $lastname, $email, $password;
 
     /**
      * Create a new job instance.
@@ -28,10 +28,6 @@ class UserJob implements ShouldQueue
         $this->lastname = strtolower($request->lastname);
         $this->email = strtolower($request->email);
         $this->password = bcrypt($request->password);
-        $this->country = strtolower($request->country);
-        $this->age = $request->age;
-        $this->sex = $request->sex;
-        logger($request);
     }
 
     /**
@@ -41,16 +37,13 @@ class UserJob implements ShouldQueue
      */
     public function handle()
     {
-        // User::create([
-        //     'name' => $this->name,
-        //     'lastname' => $this->lastname,
-        //     'email' => $this->email,
-        //     'password' => $this->password,
-        //     'country' => $this->country,
-        //     'age' => $this->age,
-        //     'sex' => $this->sex,
-        // ]);
+        User::create([
+            'name' => $this->name,
+            'lastname' => $this->lastname,
+            'email' => $this->email,
+            'password' => $this->password
+        ]);
 
-        // return response(200);
+        return response(200);
     }
 }

@@ -17,11 +17,13 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('lastname');
-            $table->string('country');
-            $table->tinyInteger('age');
+            $table->string('city')->nullable();
+            $table->string('about_me')->nullable();
+            $table->boolean('relationship')->nullable();
+            $table->tinyInteger('age')->nullable();
             $table->string('email')->unique();
             $table->enum('role', ['user', 'subscriber', 'admin'])->default('user');
-            $table->enum('sex', ['male', 'female', 'couple', 'male_couple', 'female_couple']);
+            $table->enum('sex', ['male', 'female', 'couple', 'male_couple', 'female_couple'])->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
