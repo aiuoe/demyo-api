@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Cloudinary;
+use App\Models\Photo;
 
 class PhotoController extends Controller
 {
@@ -30,13 +31,14 @@ class PhotoController extends Controller
 			$photo = cloudinary()->upload($photo->getRealPath(), [
         'folder' => 'swingRu',
         'transformation' => [
-                  'width' => 100,
-                  'height' => 100,
+                  'width' => 600,
+                  'height' => 600,
 				        	'quality' => 'auto',
 				        	'fetch_format' => 'auto',
          ]
 			])->getSecurePath();
-			logger($photo);
+			
+			Photo::create(['user_id' => auth()->user()->id, 'url' => $photo]);
 		}
 	}
 

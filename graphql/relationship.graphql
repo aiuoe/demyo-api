@@ -1,0 +1,18 @@
+type Relationship 
+{
+  id: ID
+  name: String
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+extend type Query
+{
+  relationships: [Relationship!]! @all
+}
+
+extend type Mutation
+{
+  relationshipUpser(id: ID name: String! @spread): Relationship! @upsert @admin
+  relationshipDelete(id: ID! @eq): Relationship @delete @admin
+}

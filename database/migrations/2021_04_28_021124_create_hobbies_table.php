@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePhotosTable extends Migration
+class CreateHobbiesTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,13 +13,13 @@ class CreatePhotosTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('photos', function (Blueprint $table) {
+		Schema::create('hobbies', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('user_id')
 			->constrained()
 			->onUpdate('cascade')
 			->onDelete('cascade');
-			$table->string('url');
+			$table->longText('name');
 			$table->timestamps();
 		});
 	}
@@ -31,6 +31,6 @@ class CreatePhotosTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('photos');
+		Schema::dropIfExists('hobbies');
 	}
 }

@@ -1,0 +1,18 @@
+type City 
+{
+  id: ID
+  name: String
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+extend type Query
+{
+  cities: [City!]! @all
+}
+
+extend type Mutation
+{
+  cityUpser(id: ID name: String! @spread): City! @upsert @admin
+  cityDelete(id: ID! @eq): City @delete @admin
+}

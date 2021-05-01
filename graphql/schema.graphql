@@ -3,6 +3,11 @@
 #import conversation.graphql
 #import message.graphql
 #import photo.graphql
+#import city.graphql
+#import gender.graphql
+#import relationship.graphql
+#import wish.graphql
+#import hobby.graphql
 
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")

@@ -6,38 +6,38 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('city')->nullable();
-            $table->string('about_me')->nullable();
-            $table->boolean('relationship')->nullable();
-            $table->tinyInteger('age')->nullable();
-            $table->string('email')->unique();
-            $table->enum('role', ['user', 'subscriber', 'admin'])->default('user');
-            $table->enum('sex', ['male', 'female', 'couple', 'male_couple', 'female_couple'])->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
-    }
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('users', function (Blueprint $table) {
+			$table->id();
+			$table->string('name');
+			$table->string('lastname');
+			$table->string('email')->unique();
+			$table->date('birth_date')->nullable();
+			$table->string('about_me')->nullable();
+			$table->foreignId('gender_id')->nullable()->constrained();
+			$table->foreignId('relationship_id')->nullable()->constrained();
+			$table->foreignId('wish_id')->nullable()->constrained();
+			$table->foreignId('city_id')->nullable()->constrained();
+			$table->timestamp('email_verified_at')->nullable();
+			$table->string('password');
+			$table->rememberToken();
+			$table->timestamps();
+		});
+	}
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('users');
-    }
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::dropIfExists('users');
+	}
 }

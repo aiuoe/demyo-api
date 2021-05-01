@@ -1,0 +1,19 @@
+type Hobby 
+{
+  id: ID
+  user_id: User! @belongsTo(relation: "user")
+  name: String
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+extend type Query
+{
+  hobbies: [Hobby!]! @all
+}
+
+extend type Mutation
+{
+  hobbyUpser(id: ID name: String! @spread): Hobby! @create @inject(context: "user.id", name: "user_id") @guard(with: "api")
+  hobbyDelete(id: ID! @eq): Hobby @delete
+}

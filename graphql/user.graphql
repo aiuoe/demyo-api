@@ -1,26 +1,15 @@
-enum TYPE_SEX
-{
-  male,
-  female,
-  couple,
-  male_couple,
-  female_couple
-}
-
 type User 
 {
   id: ID!
-  role: String!
-  name: String!
-  lastname: String!
-  email: String!
-  country: String
-  age: Int
-  sex: TYPE_SEX
-  nconversations: Int @count(relation: "conversations") 
-  nfriends: Int @count(relation: "friends") 
-  nmessages: Int @count(relation: "messages")
-  nfriendrequests: Int @count(relation: "friendrequests")
+  name: String
+  lastname: String
+  email: String
+  birth_date: Date
+  about_me: String
+  gender_id: ID
+  relationship_id: ID
+  wish_id: ID
+  city_id: ID
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -28,12 +17,15 @@ type User
 input userUpdate
 {
   id: ID! @rules(apply: ["auth"])
-  name: String!
-  lastname: String!
-  email: String!
-  country: String!
-  age: Int!
-  sex: String!	
+  name: String
+  lastname: String
+  email: String
+  birth_date: Date!
+  about_me: String!
+  gender_id: ID!
+  relationship_id: ID!
+  wish_id: ID!
+  city_id: ID!
 }
 
 extend type Query 
@@ -47,7 +39,4 @@ extend type Mutation
 {
 	userUpdate(input: userUpdate! @spread): User! @update 
 	userDelete(id: ID! @eq): User @delete
-  
-  userUpgrade(id: ID! @eq): User! @field(resolver: "UserMutation@upgrade")
-  userDowngrade(id: ID! @eq): User! @field(resolver: "UserMutation@downgrade")
 }

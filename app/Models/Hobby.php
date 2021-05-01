@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Photo extends Model
+class Hobby extends Model
 {
   use HasFactory;
-
-  protected $table = 'photos', $fillable = ['user_id', 'url'];
+  protected $fillable = ['user_id', 'name'];
 
   public function user(): BelongsTo
   {
