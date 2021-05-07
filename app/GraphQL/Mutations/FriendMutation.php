@@ -21,20 +21,12 @@ class FriendMutation
 
 	public function accept($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
 	{
-		$friend_id = auth()->user()->friend_request_all()->where('id', $args['id'])->first()->friend_id;
-
-		// check conversation exists or create
-		$conversations = auth()->user()->conversation_all(); 
-		if ($conversations->contains('friend_id', '=', $friend_id))
-			$conversations->where('friend_id', $friend_id)->first()->id;
-		else
-			auth()->user()->conversations()->create(['friend_id' => $friend_id])->id;
-
 		return auth()->user()
 		->friendrequests()
+		->get()
 		->where('id', $args['id'])
 		->first()
-		->acceptFriendRequest();
+		->friend_request_accept();
 	}
 
 	public function delete($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)

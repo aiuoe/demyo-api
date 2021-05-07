@@ -28,9 +28,7 @@ class Friend extends Model
   {
     // check conversation exists or create
     $conversations = auth()->user()->conversation_all(); 
-    if ($conversations->contains('friend_id', '=', $this->user_id))
-      $conversations->where('friend_id', $this->user_id)->first()->id;
-    else
+    if (!$conversations->contains('friend_id', '=', $this->user_id))
       auth()->user()->conversations()->create(['friend_id' => $this->user_id])->id;
 
     if (auth()->user()->id == $this->friend_id)
