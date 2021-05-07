@@ -6,10 +6,10 @@ type User
   email: String
   birth_date: Date
   about_me: String
-  gender_id: ID
-  relationship_id: ID
-  wish_id: ID
-  city_id: ID
+  gender_id: Gender @belongsTo(relation: "gender")
+  relationship_id: Relationship @belongsTo(relation: "relationship")
+  wish_id: Wish @belongsTo(relation: "wish")
+  city_id: City @belongsTo(relation: "city")
   created_at: DateTime!
   updated_at: DateTime!
 }

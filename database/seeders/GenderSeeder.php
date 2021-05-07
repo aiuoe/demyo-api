@@ -18,31 +18,31 @@ class GenderSeeder extends Seeder
   	DB::table('genders')->upsert([
   		[
   			'id' => 1,
-  			'name' => 'male',
+  			'name' => 'мужской',
         'created_at' => Carbon::now(), 
         'updated_at' => Carbon::now()
   		],
   		[
   			'id' => 2,
-  			'name' => 'female',
+  			'name' => 'женский',
         'created_at' => Carbon::now(), 
         'updated_at' => Carbon::now()
   		],
   		[
   			'id' => 3,
-  			'name' => 'couple',
+  			'name' => 'пара',
         'created_at' => Carbon::now(), 
         'updated_at' => Carbon::now()
   		],
   		[
   			'id' => 4,
-  			'name' => 'male_couple',
+  			'name' => 'мужская пара',
         'created_at' => Carbon::now(), 
         'updated_at' => Carbon::now()
   		],
   		[
   			'id' => 5,
-  			'name' => 'female_couple',
+  			'name' => 'женская пара',
         'created_at' => Carbon::now(), 
         'updated_at' => Carbon::now()
   		],

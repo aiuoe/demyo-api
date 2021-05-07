@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -146,10 +147,6 @@ class User extends Authenticatable implements JWTSubject
 		});
 	}
 
-  public function photos(): HasMany
-  {
-    return $this->hasMany(Photo::class);
-  }
 
   public function conversations(): HasMany
   {
@@ -187,6 +184,11 @@ class User extends Authenticatable implements JWTSubject
     			->where('friend_id', auth()->user()->id);
     	});
   }
+  
+  public function photos(): HasMany
+  {
+    return $this->hasMany(Photo::class);
+  }
 
 	public function messages(): HasMany
 	{
@@ -197,4 +199,24 @@ class User extends Authenticatable implements JWTSubject
 	{
 		return $this->hasMany(Notification::class);
 	}
+
+  public function city(): BelongsTo
+  {
+  	return $this->belongsTo(City::class);
+  }
+
+  public function relationship(): BelongsTo
+  {
+  	return $this->belongsTo(Relationship::class);
+  }
+
+  public function gender(): BelongsTo
+  {
+  	return $this->belongsTo(Gender::class);
+  }
+
+  public function wish(): BelongsTo
+  {
+  	return $this->belongsTo(Wish::class);
+  }
 }
