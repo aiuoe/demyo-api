@@ -27,18 +27,18 @@ class UserTest extends TestCase
 
 		$signup->assertStatus(200);
 
-		// $login = $this->postJson(config('app.url') . '/api/auth/login/', 
-		// [
-		// 	'email' => 'ruben@dev.com',
-		// 	'password' => 'secret'
-		// ]);
+		$login = $this->postJson(config('app.url') . '/api/auth/login/', 
+		[
+			'email' => 'ruben@dev.com',
+			'password' => 'secret'
+		]);
 
-		// $login->assertStatus(200)
-		// ->assertJsonStructure([
-		// 	'access_token',
-		// 	'token_type',
-		// 	'expires_in'
-		// ]);
+		$login->assertStatus(200)
+		->assertJsonStructure([
+			'access_token',
+			'token_type',
+			'expires_in'
+		]);
 
    //  $me = $this->withHeaders([
    //    'Authorization' => 'Bearer' . $login['access_token'],
