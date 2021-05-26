@@ -13,6 +13,6 @@ extend type Query
 
 extend type Mutation
 {
-  cityUpser(id: ID name: String! @spread): City! @upsert @admin
+  cityUpsert(id: ID name: String! @spread): City! @upsert @admin
   cityDelete(id: ID! @eq): City @delete @admin
 }

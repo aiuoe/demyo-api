@@ -8,7 +8,7 @@ use Nuwave\Lighthouse\Subscriptions\Subscriber;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use GraphQL\Type\Definition\ResolveInfo;
 
-class ConversationUpsert extends GraphQLSubscription
+class NotificationSubscription extends GraphQLSubscription
 {
 	/**
 	 * Check if subscriber is allowed to listen to the subscription.
@@ -33,7 +33,7 @@ class ConversationUpsert extends GraphQLSubscription
 	public function filter(Subscriber $subscriber, $root): bool
 	{
 		// TODO implement filter
-		if (auth()->user()->id == $subscriber->context->user->id && auth()->user()->id == $root->user_id)
+		if ($subscriber->context->user->id == $root->user_id)
 			return true;
 		else
 			return false;

@@ -3,6 +3,7 @@
 #import conversation.graphql
 #import message.graphql
 #import photo.graphql
+#import notification.graphql
 #import city.graphql
 #import gender.graphql
 #import relationship.graphql

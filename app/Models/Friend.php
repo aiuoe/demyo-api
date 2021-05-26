@@ -24,7 +24,7 @@ class Friend extends Model
     'status'
   ];
 
-  public function friend_request_accept()
+  public function friend_request_accept(): int
   {
     // check conversation exists or create
     $conversations = auth()->user()->conversation_all(); 
@@ -54,5 +54,20 @@ class Friend extends Model
   public function conversations(): HasMany
   {
     return $this->hasMany(Conversation::class);
+  }
+
+  public function gender(): BelongsTo
+  {
+    return $this->belongsTo(Gender::class);
+  }
+
+  public function photos(): HasMany
+  {
+    return $this->hasMany(Photo::class);
+  }
+
+  public function notifications(): HasMany
+  {
+    return $this->hasMany(Notification::class);
   }
 }

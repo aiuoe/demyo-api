@@ -10,6 +10,8 @@ type User
   relationship_id: Relationship @belongsTo(relation: "relationship")
   wish_id: Wish @belongsTo(relation: "wish")
   city_id: City @belongsTo(relation: "city")
+  photos: [Photo!]!
+  notifications: [Notification!]!
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -30,6 +32,7 @@ input userUpdate
 
 extend type Query 
 {
+  users_all: [User!]! @all
   users: [User!]! @paginateAuth
   user(id: ID @eq): User @find
   me: User! @auth

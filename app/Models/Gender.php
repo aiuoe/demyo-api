@@ -15,4 +15,9 @@ class Gender extends Model
   {
     return $this->hasMany(User::class);
   }
+
+  public function friends(): HasMany
+  {
+    return $this->hasMany(User::class);
+  }
 }

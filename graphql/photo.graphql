@@ -2,7 +2,7 @@ type Photo
 {
   id: ID!
   user_id: User @belongsTo(relation: "user")
-  photo: String!
+  url: String
   created_at: DateTime!
   updated_at: DateTime!
 }

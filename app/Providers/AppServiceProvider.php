@@ -80,6 +80,18 @@ class AppServiceProvider extends ServiceProvider
 			}
 		});
 
+		Validator::extend('has_friend', function ($attribute, $value, $parameters, $validator)
+		{
+			if ($value)
+			{
+				logger($value);
+				if (auth()->user()->friend_all()->contains('friend_id', $value))
+					return true; 
+				else
+					throw new AuthorizationException("Unauthorized");
+			}
+		});
+
 		Validator::extend('auth', function ($attribute, $value, $parameters, $validator)
 		{
 			if ($value)

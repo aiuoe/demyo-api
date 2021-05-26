@@ -1,0 +1,25 @@
+type Notification 
+{
+  id: ID!
+  user_id: User! @belongsTo(relation: "user")
+  friend_id: User @belongsTo(relation: "friend")
+  message: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+extend type Query
+{
+  notifications: [Notification!]! @paginateAuth
+}
+
+extend type Mutation
+{
+  notificationUpsert(id: ID name: String! @spread): Notification! @upsert @admin
+  notificationDelete(id: ID! @eq): Notification @delete @admin
+}
+
+extend type Subscription
+{
+  notificationSubscription: Notification
+}
