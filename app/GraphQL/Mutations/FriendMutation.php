@@ -39,6 +39,14 @@ class FriendMutation
 		if ($friend_request != null)
 		{
 			$friend_request->friend_request_accept();
+
+			$conversations = auth()->user()->conversation_all(); 
+			if ($conversations->contains('friend_id', '=', $args['id']))
+			{
+				$conversation_id = $conversations->where('friend_id', $args['id'])->first()->id;
+				Subscription::broadcast('conversationUpsert', Conversation::find($conversation_id));
+			}
+			
 			return 'вы теперь друзья';
 		}
 		
