@@ -39,6 +39,7 @@ class MessageMutation
 				'conversation_id' => $conversation_id, 
 				'message' => $args['message']
 			]);
+		
 		Subscription::broadcast('messageUpsert', $message);
 		return $message;
 	}
